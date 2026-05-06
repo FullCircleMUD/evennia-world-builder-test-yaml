@@ -1,3 +1,4 @@
 deployment_id: 1
+typeclass: evennia.objects.objects.DefaultRoom
 name: The Sanctum
 description: A circular chamber lit by moonlight through a glass dome.
