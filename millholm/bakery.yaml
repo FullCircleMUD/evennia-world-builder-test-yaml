@@ -1,3 +1,29 @@
+# Spike 1 scope — single object, no exits, no contents.
+# Exercises every per-object dimension the builder must support
+# before recursion / cross-refs land. The full reference fixture
+# (with exits + contents) lives in `full_bakery.yaml`, which is
+# unindexed and silently ignored by the Loader.
+
 deployment_id: 1
+typeclass: typeclasses.rooms.BakeryRoom
 name: Goldencrust Bakery
-description: Smells of fresh bread, honey buns, and woodsmoke.
+aliases:
+  - bakery
+  - goldencrust
+description: |
+  Smells of fresh bread, honey buns, and woodsmoke fill the warm air.
+  A long counter runs the length of the south wall, fronted by glass
+  cases of golden loaves and pastries. The brick oven at the back
+  glows softly even in the early morning hours.
+locks: "examine:all();get:false();puppet:perm(Wizards)"
+tags:
+  - bakery
+  - commerce
+  - { key: indoor, category: environment }
+  - { key: warm, category: environment }
+  - { key: millholm_town, category: district }
+attributes:
+  - { key: ambient_smell, value: "fresh bread and woodsmoke" }
+  - { key: open_hours, value: [6, 18] }
+  - { key: signature_recipe, value: { name: "honey loaf", flour_grams: 500, honey_grams: 75 }, category: bakery_specific }
+  - { key: noise_level, value: quiet, category: ambient }
