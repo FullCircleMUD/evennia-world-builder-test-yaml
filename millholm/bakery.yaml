@@ -24,6 +24,8 @@ tags:
   - { key: warm, category: environment }
   - { key: millholm_town, category: district }
 attributes:
+  # Override the typeclass at_object_creation default (10) per-instance.
+  - { key: loaves_available, value: 24 }
   - { key: ambient_smell, value: "fresh bread and woodsmoke" }
   - { key: open_hours, value: [6, 18] }
   - { key: signature_recipe, value: { name: "honey loaf", flour_grams: 500, honey_grams: 75 }, category: bakery_specific }

@@ -19,5 +19,21 @@ levels: [zone, room]
 # The library cannot verify whether your CI is configured. Setting this to
 # true is a claim about your deploy pipeline; the cost of getting it wrong is
 # on you. Setup guide:
-#     https://github.com/FullCircleMUD/world-builder/blob/main/DESIGN/validation-gating.md
+#     https://github.com/FullCircleMUD/evennia-world-builder/blob/main/DESIGN/validation-gating.md
 repo-ci-pre-validation: false
+
+# NOT YET ACTIVE. Must be `false` — the library refuses to parse this
+# file if you set it to `true`.
+#
+# Planned behaviour: when true, the validator will reject YAML-declared
+# attributes whose key isn't declared on the entity's typeclass — catching
+# typos like `loafs_avilable` that silently create junk attributes no game
+# logic reads. Detection mechanism (typeclass introspection vs explicit
+# allowlist on the typeclass vs other) is TBD.
+#
+# Why refuse rather than ignore? Because a consumer who flips this to
+# true would believe attribute validation was running when in fact
+# nothing is checked. False security is worse than no security. Setting
+# this to false (or omitting it) is the only way the library can confirm
+# you understand the feature isn't live yet.
+strict-attributes: false
