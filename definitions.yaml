@@ -1,1 +1,23 @@
+# Hierarchical level names from outermost to innermost folder. Must match
+# the actual folder structure of your content repo: levels[0] is the top
+# folder name (e.g. "zone"), levels[1] is the next level down (e.g. "room"),
+# and so on. wb_build queries use these names:
+#     wb_build zone=millholm room=bakery
 levels: [zone, room]
+
+# DO NOT flip this without setting up CI pre-validation on your content repo.
+# This is your assertion that every commit on the deploy branch has passed
+# wb-validate via PR + branch protection + required status check.
+#
+# When false (default): wb_build pre-validates the whole repo before every
+# build. Safe but slow at scale (10k+ entities = noticeable cost per build).
+#
+# When true: wb_build trusts the gate and skips the whole-repo walk. Fast,
+# but if your CI is not actually set up correctly, you can deploy unvalidated
+# YAML — which can break your live database in ways that are painful to undo.
+#
+# The library cannot verify whether your CI is configured. Setting this to
+# true is a claim about your deploy pipeline; the cost of getting it wrong is
+# on you. Setup guide:
+#     https://github.com/FullCircleMUD/world-builder/blob/main/DESIGN/validation-gating.md
+repo-ci-pre-validation: false
