@@ -5,7 +5,7 @@
 # unindexed and silently ignored by the Loader.
 
 deployment_id: 1
-typeclass: typeclasses.rooms.BakeryRoom
+typeclass: typeclasses.rooms.BkeryRoom
 name: Goldencrust Bakery
 aliases:
   - bakery
