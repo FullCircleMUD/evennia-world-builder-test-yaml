@@ -1,4 +1,5 @@
 deployment_id: 1
 typeclass: evennia.objects.objects.DefaultRoom
 name: The Crooked Lantern
+location: null
 description: A warmly-lit common room with a roaring hearth and worn oak tables.

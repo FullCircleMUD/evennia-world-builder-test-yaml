@@ -7,6 +7,7 @@
 deployment_id: 1
 typeclass: typeclasses.rooms.BakeryRoom
 name: Goldencrust Bakery
+location: null   # orphan room — explicit declaration required
 aliases:
   - bakery
   - goldencrust

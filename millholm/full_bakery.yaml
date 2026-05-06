@@ -12,6 +12,7 @@
 deployment_id: 1
 typeclass: typeclasses.rooms.BakeryRoom
 name: Goldencrust Bakery
+location: null   # orphan room
 aliases:
   - bakery
   - goldencrust
