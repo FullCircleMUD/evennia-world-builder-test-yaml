@@ -31,8 +31,12 @@ attributes:
   - { key: noise_level, value: quiet, category: ambient }
 
 contents:
+  # Custom typeclasses (BrickOven, DisplayCase, Baker, FreshLoaf) live in
+  # full_bakery.yaml as the aspirational fixture; here we use DefaultObject
+  # so the smoke test can drive the recursion+placement code path against
+  # the demo_game's actual typeclass surface.
   - deployment_id: 3
-    typeclass: typeclasses.objects.BrickOven
+    typeclass: evennia.objects.objects.DefaultObject
     name: brick oven
     aliases: [oven, hearth]
     description: A cavernous brick oven, its mouth glowing with embers.
@@ -45,7 +49,7 @@ contents:
       - { key: fuel, value: oak_wood }
 
   - deployment_id: 4
-    typeclass: typeclasses.objects.DisplayCase
+    typeclass: evennia.objects.objects.DefaultObject
     name: bread display case
     aliases: [display, case, counter]
     description: Sloped glass shelves displaying the day's loaves.
@@ -57,7 +61,7 @@ contents:
       - { key: capacity, value: 24 }
 
   - deployment_id: 5
-    typeclass: typeclasses.npcs.Baker
+    typeclass: evennia.objects.objects.DefaultObject
     name: Mira the baker
     aliases: [mira, baker]
     description: A flour-dusted woman with kind eyes and forearms like cordwood.
@@ -71,7 +75,7 @@ contents:
       - { key: shop_inventory, value: [honey_loaf, rye_loaf, sweet_bun], category: merchant_data }
 
   - deployment_id: 6
-    typeclass: typeclasses.objects.FreshLoaf
+    typeclass: evennia.objects.objects.DefaultObject
     name: a fresh honey loaf
     aliases: [loaf, bread, honey loaf]
     description: A golden, glossy loaf still warm from the oven.
