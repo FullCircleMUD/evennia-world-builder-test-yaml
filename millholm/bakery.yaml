@@ -1,8 +1,7 @@
-# Spike 1 scope — single object, no exits, no contents.
-# Exercises every per-object dimension the builder must support
-# before recursion / cross-refs land. The full reference fixture
-# (with exits + contents) lives in `full_bakery.yaml`, which is
-# unindexed and silently ignored by the Loader.
+# Spike 2 step 1 scope — single room + nested contents (no exits yet).
+# Exercises the Loader's contents-flatten behaviour against a real-world
+# YAML shape. The exits: block from full_bakery.yaml is deliberately
+# omitted here until exits land in spike 4.
 
 deployment_id: 1
 typeclass: typeclasses.rooms.BakeryRoom
@@ -30,3 +29,56 @@ attributes:
   - { key: open_hours, value: [6, 18] }
   - { key: signature_recipe, value: { name: "honey loaf", flour_grams: 500, honey_grams: 75 }, category: bakery_specific }
   - { key: noise_level, value: quiet, category: ambient }
+
+contents:
+  - deployment_id: 3
+    typeclass: typeclasses.objects.BrickOven
+    name: brick oven
+    aliases: [oven, hearth]
+    description: A cavernous brick oven, its mouth glowing with embers.
+    locks: "examine:all();get:false()"
+    tags:
+      - { key: fixture, category: object_kind }
+      - { key: heat_source, category: function }
+    attributes:
+      - { key: temperature_c, value: 230 }
+      - { key: fuel, value: oak_wood }
+
+  - deployment_id: 4
+    typeclass: typeclasses.objects.DisplayCase
+    name: bread display case
+    aliases: [display, case, counter]
+    description: Sloped glass shelves displaying the day's loaves.
+    locks: "examine:all();get:false()"
+    tags:
+      - fixture
+      - { key: glass, category: material }
+    attributes:
+      - { key: capacity, value: 24 }
+
+  - deployment_id: 5
+    typeclass: typeclasses.npcs.Baker
+    name: Mira the baker
+    aliases: [mira, baker]
+    description: A flour-dusted woman with kind eyes and forearms like cordwood.
+    locks: "examine:all();get:false();attack:false()"
+    tags:
+      - npc
+      - merchant
+      - { key: friendly, category: disposition }
+    attributes:
+      - { key: greeting, value: "Morning! Smell that? Just out of the oven." }
+      - { key: shop_inventory, value: [honey_loaf, rye_loaf, sweet_bun], category: merchant_data }
+
+  - deployment_id: 6
+    typeclass: typeclasses.objects.FreshLoaf
+    name: a fresh honey loaf
+    aliases: [loaf, bread, honey loaf]
+    description: A golden, glossy loaf still warm from the oven.
+    locks: "examine:all();get:all()"
+    tags:
+      - food
+      - { key: bakery_goods, category: item_kind }
+    attributes:
+      - { key: nutrition, value: 25 }
+      - { key: weight_grams, value: 800 }
