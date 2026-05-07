@@ -1,5 +1,6 @@
-deployment_id: 1
-typeclass: evennia.objects.objects.DefaultRoom
-name: The Sanctum
-location: null
-description: A circular chamber lit by moonlight through a glass dome.
+entities:
+  - deployment_id: 1
+    typeclass: evennia.objects.objects.DefaultRoom
+    name: The Sanctum
+    location: null
+    description: A circular chamber lit by moonlight through a glass dome.

@@ -1,155 +1,150 @@
-# Multi-entity file (top-level YAML list, "shape 2") — two connected
-# rooms in the millholm bakery district plus their nested contents and
-# the exits between them.
+# Multi-entity file in the canonical shape — top-level mapping with
+# an `entities:` key. Two connected rooms in the millholm bakery
+# district plus their nested contents and the exits between them.
 #
 # Connections:
 #   Goldencrust Bakery (id 1)  ←→  baker's house (id 9)
 #   Goldencrust Bakery (id 1)   →  millholm/inn.yaml id 1
 #
 # The reverse exit from the inn back to the bakery (which lives in
-# inn.yaml as id 2) would normally be registered here under a file-level
-# `incoming_exits:` key so a scoped rebuild of bakery.yaml restores it.
-# That requires the Loader's wrapper-mapping shape ("shape 3") which is
-# pending in spike 6 step 6c — once it lands, this file converts to:
-#
-#   entities:
-#     - <bakery>
-#     - <baker's house>
-#   incoming_exits:
-#     - { deployment_file: millholm/inn.yaml, deployment_id: 2 }
+# inn.yaml as id 2) would normally be registered here under a file-
+# level `incoming_exits:` key so a scoped rebuild of bakery.yaml
+# restores it automatically. That field lands in the next library
+# step (spike 6 — file-level metadata).
 
-- deployment_id: 1
-  typeclass: typeclasses.rooms.BakeryRoom
-  name: Goldencrust Bakery
-  location: null
-  aliases:
-    - bakery
-    - goldencrust
-  description: |
-    Smells of fresh bread, honey buns, and woodsmoke fill the warm air.
-    A long counter runs the length of the south wall, fronted by glass
-    cases of golden loaves and pastries. The brick oven at the back
-    glows softly even in the early morning hours.
-  locks: "examine:all();get:false();puppet:perm(Wizards)"
-  tags:
-    - bakery
-    - commerce
-    - { key: indoor, category: environment }
-    - { key: warm, category: environment }
-    - { key: millholm_town, category: district }
-  attributes:
-    # Override the typeclass at_object_creation default (10) per-instance.
-    - { key: loaves_available, value: 24 }
-    - { key: ambient_smell, value: "fresh bread and woodsmoke" }
-    - { key: open_hours, value: [6, 18] }
-    - { key: signature_recipe, value: { name: "honey loaf", flour_grams: 500, honey_grams: 75 }, category: bakery_specific }
-    - { key: noise_level, value: quiet, category: ambient }
+entities:
+  - deployment_id: 1
+    typeclass: typeclasses.rooms.BakeryRoom
+    name: Goldencrust Bakery
+    location: null
+    aliases:
+      - bakery
+      - goldencrust
+    description: |
+      Smells of fresh bread, honey buns, and woodsmoke fill the warm air.
+      A long counter runs the length of the south wall, fronted by glass
+      cases of golden loaves and pastries. The brick oven at the back
+      glows softly even in the early morning hours.
+    locks: "examine:all();get:false();puppet:perm(Wizards)"
+    tags:
+      - bakery
+      - commerce
+      - { key: indoor, category: environment }
+      - { key: warm, category: environment }
+      - { key: millholm_town, category: district }
+    attributes:
+      # Override the typeclass at_object_creation default (10) per-instance.
+      - { key: loaves_available, value: 24 }
+      - { key: ambient_smell, value: "fresh bread and woodsmoke" }
+      - { key: open_hours, value: [6, 18] }
+      - { key: signature_recipe, value: { name: "honey loaf", flour_grams: 500, honey_grams: 75 }, category: bakery_specific }
+      - { key: noise_level, value: quiet, category: ambient }
 
-  contents:
-    - deployment_id: 3
-      typeclass: evennia.objects.objects.DefaultObject
-      name: brick oven
-      aliases: [oven, hearth]
-      description: A cavernous brick oven, its mouth glowing with embers.
-      locks: "examine:all();get:false()"
-      tags:
-        - { key: fixture, category: object_kind }
-        - { key: heat_source, category: function }
-      attributes:
-        - { key: temperature_c, value: 230 }
-        - { key: fuel, value: oak_wood }
+    contents:
+      - deployment_id: 3
+        typeclass: evennia.objects.objects.DefaultObject
+        name: brick oven
+        aliases: [oven, hearth]
+        description: A cavernous brick oven, its mouth glowing with embers.
+        locks: "examine:all();get:false()"
+        tags:
+          - { key: fixture, category: object_kind }
+          - { key: heat_source, category: function }
+        attributes:
+          - { key: temperature_c, value: 230 }
+          - { key: fuel, value: oak_wood }
 
-    - deployment_id: 4
-      typeclass: evennia.objects.objects.DefaultObject
-      name: bread display case
-      aliases: [display, case, counter]
-      description: Sloped glass shelves displaying the day's loaves.
-      locks: "examine:all();get:false()"
-      tags:
-        - fixture
-        - { key: glass, category: material }
-      attributes:
-        - { key: capacity, value: 24 }
+      - deployment_id: 4
+        typeclass: evennia.objects.objects.DefaultObject
+        name: bread display case
+        aliases: [display, case, counter]
+        description: Sloped glass shelves displaying the day's loaves.
+        locks: "examine:all();get:false()"
+        tags:
+          - fixture
+          - { key: glass, category: material }
+        attributes:
+          - { key: capacity, value: 24 }
 
-    - deployment_id: 5
-      typeclass: evennia.objects.objects.DefaultObject
-      name: Mira the baker
-      aliases: [mira, baker]
-      description: A flour-dusted woman with kind eyes and forearms like cordwood.
-      locks: "examine:all();get:false();attack:false()"
-      tags:
-        - npc
-        - merchant
-        - { key: friendly, category: disposition }
-      attributes:
-        - { key: greeting, value: "Morning! Smell that? Just out of the oven." }
-        - { key: shop_inventory, value: [honey_loaf, rye_loaf, sweet_bun], category: merchant_data }
+      - deployment_id: 5
+        typeclass: evennia.objects.objects.DefaultObject
+        name: Mira the baker
+        aliases: [mira, baker]
+        description: A flour-dusted woman with kind eyes and forearms like cordwood.
+        locks: "examine:all();get:false();attack:false()"
+        tags:
+          - npc
+          - merchant
+          - { key: friendly, category: disposition }
+        attributes:
+          - { key: greeting, value: "Morning! Smell that? Just out of the oven." }
+          - { key: shop_inventory, value: [honey_loaf, rye_loaf, sweet_bun], category: merchant_data }
 
-    - deployment_id: 6
-      typeclass: evennia.objects.objects.DefaultObject
-      name: a fresh honey loaf
-      aliases: [loaf, bread, honey loaf]
-      description: A golden, glossy loaf still warm from the oven.
-      locks: "examine:all();get:all()"
-      tags:
-        - food
-        - { key: bakery_goods, category: item_kind }
-      attributes:
-        - { key: nutrition, value: 25 }
-        - { key: weight_grams, value: 800 }
+      - deployment_id: 6
+        typeclass: evennia.objects.objects.DefaultObject
+        name: a fresh honey loaf
+        aliases: [loaf, bread, honey loaf]
+        description: A golden, glossy loaf still warm from the oven.
+        locks: "examine:all();get:all()"
+        tags:
+          - food
+          - { key: bakery_goods, category: item_kind }
+        attributes:
+          - { key: nutrition, value: 25 }
+          - { key: weight_grams, value: 800 }
 
-  exits:
-    - deployment_id: 7
-      typeclass: evennia.objects.objects.DefaultExit
-      name: north
-      aliases: [n, inn]
-      description: A short walk down the lane leads to the Crooked Lantern.
-      destination:
-        deployment_file: millholm/inn.yaml
-        deployment_id: 1
+    exits:
+      - deployment_id: 7
+        typeclass: evennia.objects.objects.DefaultExit
+        name: north
+        aliases: [n, inn]
+        description: A short walk down the lane leads to the Crooked Lantern.
+        destination:
+          deployment_file: millholm/inn.yaml
+          deployment_id: 1
 
-    - deployment_id: 8
-      typeclass: evennia.objects.objects.DefaultExit
-      name: south
-      aliases: [s, house]
-      description: A door at the back leads through to the baker's house.
-      destination:
-        deployment_file: millholm/bakery.yaml
-        deployment_id: 9
+      - deployment_id: 8
+        typeclass: evennia.objects.objects.DefaultExit
+        name: south
+        aliases: [s, house]
+        description: A door at the back leads through to the baker's house.
+        destination:
+          deployment_file: millholm/bakery.yaml
+          deployment_id: 9
 
 
-- deployment_id: 9
-  typeclass: typeclasses.rooms.Room
-  name: Baker's House
-  location: null
-  aliases:
-    - house
-  description: |
-    The baker's modest living quarters, just behind the bakery proper.
-  locks: "examine:all();get:false();puppet:perm(Wizards)"
-  tags:
-    - { key: indoor, category: environment }
-    - { key: warm, category: environment }
-    - { key: millholm_town, category: district }
+  - deployment_id: 9
+    typeclass: typeclasses.rooms.Room
+    name: Baker's House
+    location: null
+    aliases:
+      - house
+    description: |
+      The baker's modest living quarters, just behind the bakery proper.
+    locks: "examine:all();get:false();puppet:perm(Wizards)"
+    tags:
+      - { key: indoor, category: environment }
+      - { key: warm, category: environment }
+      - { key: millholm_town, category: district }
 
-  contents:
-    - deployment_id: 10
-      typeclass: evennia.objects.objects.DefaultObject
-      name: ornate four-post bed
-      aliases: [bed]
-      description: An ornate four-post bed.
-      locks: "examine:all();get:false()"
-      tags:
-        - { key: fixture, category: object_kind }
-      attributes:
-        - { key: weight_grams, value: 800 }
+    contents:
+      - deployment_id: 10
+        typeclass: evennia.objects.objects.DefaultObject
+        name: ornate four-post bed
+        aliases: [bed]
+        description: An ornate four-post bed.
+        locks: "examine:all();get:false()"
+        tags:
+          - { key: fixture, category: object_kind }
+        attributes:
+          - { key: weight_grams, value: 800 }
 
-  exits:
-    - deployment_id: 11
-      typeclass: evennia.objects.objects.DefaultExit
-      name: north
-      aliases: [n, bakery]
-      description: The bakery is just back the way you came.
-      destination:
-        deployment_file: millholm/bakery.yaml
-        deployment_id: 1
+    exits:
+      - deployment_id: 11
+        typeclass: evennia.objects.objects.DefaultExit
+        name: north
+        aliases: [n, bakery]
+        description: The bakery is just back the way you came.
+        destination:
+          deployment_file: millholm/bakery.yaml
+          deployment_id: 1
