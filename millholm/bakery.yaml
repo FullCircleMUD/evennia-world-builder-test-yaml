@@ -6,11 +6,12 @@
 #   Goldencrust Bakery (id 1)  ←→  baker's house (id 9)
 #   Goldencrust Bakery (id 1)   →  millholm/inn.yaml id 1
 #
-# The reverse exit from the inn back to the bakery (which lives in
-# inn.yaml as id 2) would normally be registered here under a file-
-# level `incoming_exits:` key so a scoped rebuild of bakery.yaml
-# restores it automatically. That field lands in the next library
-# step (spike 6 — file-level metadata).
+# The reverse exit from the inn back to the bakery lives canonically
+# in inn.yaml as id 2, registered here under `incoming_exits:` so a
+# scoped rebuild of bakery.yaml (`wb_build zone=millholm room=bakery`)
+# automatically restores the inn's south exit if it was cascade-
+# deleted by the bakery cleanup. Pass 3 of the Builder fetches the
+# canonical file and rebuilds the missing entity.
 
 entities:
   - deployment_id: 1
@@ -148,3 +149,14 @@ entities:
         destination:
           deployment_file: millholm/bakery.yaml
           deployment_id: 1
+
+
+# File-level metadata. Sibling of `entities:` per the canonical shape.
+# Each entry is a (deployment_file, deployment_id) ref to an exit
+# living in another file that terminates at one of this file's rooms.
+# When this file is rebuilt and a registered target is missing from
+# the database, Builder pass 3 fetches its canonical file and rebuilds
+# the entity (tagged with its true home file so future cleanup of
+# that file sweeps it correctly).
+incoming_exits:
+  - { deployment_file: millholm/inn.yaml, deployment_id: 2 }
