@@ -86,3 +86,13 @@ contents:
     attributes:
       - { key: nutrition, value: 25 }
       - { key: weight_grams, value: 800 }
+
+exits:
+  - deployment_id: 7
+    typeclass: evennia.objects.objects.DefaultExit
+    name: north
+    aliases: [n, inn]
+    description: A short walk down the lane leads to the Crooked Lantern.
+    destination:
+      deployment_file: millholm/inn.yaml
+      deployment_id: 1

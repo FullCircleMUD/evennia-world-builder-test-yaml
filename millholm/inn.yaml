@@ -3,3 +3,13 @@ typeclass: evennia.objects.objects.DefaultRoom
 name: The Crooked Lantern
 location: null
 description: A warmly-lit common room with a roaring hearth and worn oak tables.
+
+exits:
+  - deployment_id: 2
+    typeclass: evennia.objects.objects.DefaultExit
+    name: south
+    aliases: [s, bakery]
+    description: The Goldencrust Bakery is just around the corner.
+    destination:
+      deployment_file: millholm/bakery.yaml
+      deployment_id: 1
