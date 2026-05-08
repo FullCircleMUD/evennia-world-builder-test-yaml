@@ -96,10 +96,10 @@ entities:
 
     exits:
       - deployment_id: 7
-        typeclass: evennia.objects.objects.DefaultExit
+        typeclass: typeclasses.doors.DemoDoor
         name: north
-        aliases: [n, inn]
-        description: A short walk down the lane leads to the Crooked Lantern.
+        aliases: [n, inn, door]
+        description: A heavy wooden door leads north toward the Crooked Lantern.
         destination:
           deployment_file: millholm/inn.yaml
           deployment_id: 1
@@ -160,3 +160,15 @@ entities:
 # that file sweeps it correctly).
 incoming_exits:
   - { deployment_file: millholm/inn.yaml, deployment_id: 2 }
+
+# Both directional links for the bakery↔inn door pair. Duplicated
+# in millholm/inn.yaml per the cross-file convention in
+# DESIGN/links.md so partial rebuilds of either file fully restore
+# the pair without library-side links restoration.
+links:
+  - entity:    { deployment_file: millholm/inn.yaml, deployment_id: 2 }
+    attribute: other_side
+    points_to: { deployment_file: millholm/bakery.yaml, deployment_id: 7 }
+  - entity:    { deployment_file: millholm/bakery.yaml, deployment_id: 7 }
+    attribute: other_side
+    points_to: { deployment_file: millholm/inn.yaml, deployment_id: 2 }

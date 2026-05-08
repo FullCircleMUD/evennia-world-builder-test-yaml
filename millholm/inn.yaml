@@ -1,3 +1,13 @@
+# Demonstrates a paired bidirectional door using the world-builder
+# `links:` mechanism. Both halves of the bakery↔inn door are declared
+# as DemoDoor exits; the file-level `links:` block sets `other_side`
+# on each so opening/closing one side mirrors to the partner.
+#
+# Per the cross-file convention in DESIGN/links.md, the same `links:`
+# block is duplicated in millholm/bakery.yaml — that lets a partial
+# rebuild of either file fully restore the door pair without help
+# from a links-restoration mechanism in the library.
+
 entities:
   - deployment_id: 1
     typeclass: evennia.objects.objects.DefaultRoom
@@ -7,10 +17,25 @@ entities:
 
     exits:
       - deployment_id: 2
-        typeclass: evennia.objects.objects.DefaultExit
+        typeclass: typeclasses.doors.DemoDoor
         name: south
-        aliases: [s, bakery]
-        description: The Goldencrust Bakery is just around the corner.
+        aliases: [s, bakery, door]
+        description: A heavy wooden door leads south toward the bakery.
         destination:
           deployment_file: millholm/bakery.yaml
           deployment_id: 1
+
+# Bakery's matching half cascade-deletes if this file's room is
+# deleted (its destination becomes invalid). Declare it so pass 3
+# rebuilds it from canonical bakery.yaml on isolated rebuilds.
+incoming_exits:
+  - { deployment_file: millholm/bakery.yaml, deployment_id: 7 }
+
+# Both directional links — same content as bakery.yaml's `links:`.
+links:
+  - entity:    { deployment_file: millholm/inn.yaml, deployment_id: 2 }
+    attribute: other_side
+    points_to: { deployment_file: millholm/bakery.yaml, deployment_id: 7 }
+  - entity:    { deployment_file: millholm/bakery.yaml, deployment_id: 7 }
+    attribute: other_side
+    points_to: { deployment_file: millholm/inn.yaml, deployment_id: 2 }
