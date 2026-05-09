@@ -18,6 +18,7 @@ entities:
     typeclass: typeclasses.rooms.BakeryRoom
     name: Goldencrust Bakery
     location: null
+    home: null
     aliases:
       - bakery
       - goldencrust
@@ -118,6 +119,13 @@ entities:
     typeclass: typeclasses.rooms.Room
     name: Baker's House
     location: null
+    # Cross-ref home demo: the baker's house's home is the bakery (id 1)
+    # in this same file. Builder will resolve the dict and pass
+    # `home=<bakery obj>` to create_object, so the resulting room's
+    # `home` field references the bakery.
+    home:
+      deployment_file: millholm/bakery.yaml
+      deployment_id: 1
     aliases:
       - house
     description: |
