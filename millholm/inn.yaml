@@ -14,6 +14,20 @@ entities:
     name: The Crooked Lantern
     location: null
     description: A warmly-lit common room with a roaring hearth and worn oak tables.
+    # Spike: dict-of-dicts attribute with a `null` placeholder for a
+    # cross-ref that gets resolved by a links: entry below using the
+    # subscript-path attribute syntax. See `notable_neighbours` link
+    # at the file-level links: section.
+    attributes:
+      - key: notable_neighbours
+        value:
+          south_door:
+            label: The bakery (Goldencrust)
+            room: null            # filled in by links: subscript-path
+            walking_minutes: 1
+          static_test:
+            label: A literal entry, never touched by links
+            counter: 42
 
     exits:
       - deployment_id: 2
@@ -39,3 +53,17 @@ links:
   - entity:    { deployment_file: millholm/bakery.yaml, deployment_id: 7 }
     attribute: other_side
     points_to: { deployment_file: millholm/inn.yaml, deployment_id: 2 }
+
+  # Spike: subscript-path attribute syntax. The leading bare identifier
+  # `notable_neighbours` names a top-level attribute that already
+  # exists on inn id 1 (created in pass 1 from the `attributes:` block
+  # above with a `null` placeholder at ["south_door"]["room"]). Pass 4
+  # walks the path and replaces the null with the resolved bakery
+  # room. After build, examining inn id 1 should show:
+  #   notable_neighbours["south_door"]["room"]    = bakery (live obj)
+  #   notable_neighbours["south_door"]["label"]   = "The bakery (Goldencrust)"
+  #   notable_neighbours["south_door"]["walking_minutes"] = 1
+  #   notable_neighbours["static_test"]["counter"] = 42
+  - entity:    { deployment_file: millholm/inn.yaml, deployment_id: 1 }
+    attribute: 'notable_neighbours["south_door"]["room"]'
+    points_to: { deployment_file: millholm/bakery.yaml, deployment_id: 1 }
