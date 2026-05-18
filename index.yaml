@@ -3,3 +3,5 @@ entries:
     kind: folder
   - name: aethenveil
     kind: file
+  - name: hook_demo
+    kind: file

@@ -1,0 +1,24 @@
+# Live demonstration of the wb_at_post_build hook.
+#
+# The PostBuildHookRoom typeclass in examples/demo_game/typeclasses/
+# rooms.py defines wb_at_post_build, which overwrites db.desc with a
+# marker string. After this file is built via `wb_build room=hook_demo`,
+# ``look`` at the room shows the marker rather than the description
+# authored below:
+#
+#   description: "done via core yaml"   ← authored value (what the Builder applies)
+#                                          |
+#                                          ▼
+#   after wb_at_post_build runs:
+#   db.desc = "DONE VIA POST BUILD HOOK"  ← marker the hook writes
+#
+# If `look` shows "done via core yaml" instead of the uppercase marker,
+# the hook did not run — diagnostic for a library regression or a
+# consumer-side typo on the method name.
+
+entities:
+  - deployment_id: 1
+    typeclass: typeclasses.rooms.PostBuildHookRoom
+    name: Hook Demo Chamber
+    location: null
+    description: done via core yaml
