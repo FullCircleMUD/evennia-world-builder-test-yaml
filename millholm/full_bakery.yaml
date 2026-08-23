@@ -48,10 +48,7 @@ entities:
           - { key: wooden, category: material }
         attributes:
           - { key: door_weight_kg, value: 30 }
-        destination:
-          deployment_file: millholm/inn.yaml
-          deployment_id: 1
-
+        destination: 28d0aac8-0106-4c30-91ea-df74b98e1ac8
     contents:
       - entity_id: f543c3c7-679d-42d4-b16e-bdcd57586723
         typeclass: typeclasses.objects.BrickOven
