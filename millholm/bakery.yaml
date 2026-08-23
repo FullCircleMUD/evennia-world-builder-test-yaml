@@ -167,3 +167,11 @@ links:
   - entity:    db662d8a-a8b1-4c84-93a1-516855a2f691   # bakery: north exit
     attribute: other_side
     points_to: 27030dd8-b228-471b-826a-dc33a86b1221   # inn: south exit
+
+  # The inn's subscript-path link, duplicated here for the same reason.
+  # Its points_to is a room in THIS file, so a rebuild of this file
+  # destroys the target; without the entry here nothing reassigns it and
+  # the inn's slot is left null until inn.yaml happens to be rebuilt.
+  - entity:    28d0aac8-0106-4c30-91ea-df74b98e1ac8   # inn: The Crooked Lantern
+    attribute: 'notable_neighbours["south_door"]["room"]'
+    points_to: bab596f3-aa25-4ec0-a916-cf472efece06   # bakery: Goldencrust Bakery
