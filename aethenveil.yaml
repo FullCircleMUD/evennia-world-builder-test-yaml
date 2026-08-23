@@ -1,5 +1,6 @@
+file_id: d69ba00c-dc5e-43fe-a0ae-347997753f76
 entities:
-  - deployment_id: 1
+  - entity_id: e48629d9-dcba-41a0-90d1-4c1080171044
     typeclass: evennia.objects.objects.DefaultRoom
     name: The Sanctum
     location: null

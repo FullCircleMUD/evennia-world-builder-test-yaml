@@ -8,8 +8,9 @@
 # rebuild of either file fully restore the door pair without help
 # from a links-restoration mechanism in the library.
 
+file_id: 006fab13-673e-47e7-9307-6365effa699f
 entities:
-  - deployment_id: 1
+  - entity_id: 28d0aac8-0106-4c30-91ea-df74b98e1ac8
     typeclass: evennia.objects.objects.DefaultRoom
     name: The Crooked Lantern
     location: null
@@ -30,7 +31,7 @@ entities:
             counter: 42
 
     exits:
-      - deployment_id: 2
+      - entity_id: 27030dd8-b228-471b-826a-dc33a86b1221
         typeclass: typeclasses.doors.DemoDoor
         name: south
         aliases: [s, bakery, door]

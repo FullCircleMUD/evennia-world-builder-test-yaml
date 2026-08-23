@@ -13,8 +13,9 @@
 # deleted by the bakery cleanup. Pass 3 of the Builder fetches the
 # canonical file and rebuilds the missing entity.
 
+file_id: d3d35e78-de1e-4e5e-9dd0-321281213976
 entities:
-  - deployment_id: 1
+  - entity_id: bab596f3-aa25-4ec0-a916-cf472efece06
     typeclass: typeclasses.rooms.BakeryRoom
     name: Goldencrust Bakery
     location: null
@@ -43,7 +44,7 @@ entities:
       - { key: noise_level, value: quiet, category: ambient }
 
     contents:
-      - deployment_id: 3
+      - entity_id: 7b6fa506-17fb-4cd4-8ea9-b3ddd2ec8139
         typeclass: evennia.objects.objects.DefaultObject
         name: brick oven
         aliases: [oven, hearth]
@@ -56,7 +57,7 @@ entities:
           - { key: temperature_c, value: 230 }
           - { key: fuel, value: oak_wood }
 
-      - deployment_id: 4
+      - entity_id: 52d10386-d06a-4514-b684-a4cb7d7e797c
         typeclass: evennia.objects.objects.DefaultObject
         name: bread display case
         aliases: [display, case, counter]
@@ -68,7 +69,7 @@ entities:
         attributes:
           - { key: capacity, value: 24 }
 
-      - deployment_id: 5
+      - entity_id: 1b836927-3cca-4e05-8bd4-e7a0f1cde914
         typeclass: evennia.objects.objects.DefaultObject
         name: Mira the baker
         aliases: [mira, baker]
@@ -82,7 +83,7 @@ entities:
           - { key: greeting, value: "Morning! Smell that? Just out of the oven." }
           - { key: shop_inventory, value: [honey_loaf, rye_loaf, sweet_bun], category: merchant_data }
 
-      - deployment_id: 6
+      - entity_id: 5adf18ba-c37a-4356-9656-c874a45cb326
         typeclass: evennia.objects.objects.DefaultObject
         name: a fresh honey loaf
         aliases: [loaf, bread, honey loaf]
@@ -96,7 +97,7 @@ entities:
           - { key: weight_grams, value: 800 }
 
     exits:
-      - deployment_id: 7
+      - entity_id: db662d8a-a8b1-4c84-93a1-516855a2f691
         typeclass: typeclasses.doors.DemoDoor
         name: north
         aliases: [n, inn, door]
@@ -105,7 +106,7 @@ entities:
           deployment_file: millholm/inn.yaml
           deployment_id: 1
 
-      - deployment_id: 8
+      - entity_id: 039e3725-b733-4972-b06c-cea2b82d1af7
         typeclass: evennia.objects.objects.DefaultExit
         name: south
         aliases: [s, house]
@@ -115,7 +116,7 @@ entities:
           deployment_id: 9
 
 
-  - deployment_id: 9
+  - entity_id: 5bfb8612-5e26-402f-81de-9fecaa0c9afe
     typeclass: typeclasses.rooms.Room
     name: Baker's House
     location: null
@@ -137,7 +138,7 @@ entities:
       - { key: millholm_town, category: district }
 
     contents:
-      - deployment_id: 10
+      - entity_id: d7cd3458-be03-4f7c-a6d5-8068580f5a08
         typeclass: evennia.objects.objects.DefaultObject
         name: ornate four-post bed
         aliases: [bed]
@@ -149,7 +150,7 @@ entities:
           - { key: weight_grams, value: 800 }
 
     exits:
-      - deployment_id: 11
+      - entity_id: 86ea589d-3b73-49d6-948b-4a4d28212be9
         typeclass: evennia.objects.objects.DefaultExit
         name: north
         aliases: [n, bakery]

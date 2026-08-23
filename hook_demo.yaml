@@ -16,8 +16,9 @@
 # the hook did not run — diagnostic for a library regression or a
 # consumer-side typo on the method name.
 
+file_id: bd3b58c3-c554-4042-a2f9-45433d035655
 entities:
-  - deployment_id: 1
+  - entity_id: ece5cc30-6302-429a-9ed3-dd89a2b468a3
     typeclass: typeclasses.rooms.PostBuildHookRoom
     name: Hook Demo Chamber
     location: null
