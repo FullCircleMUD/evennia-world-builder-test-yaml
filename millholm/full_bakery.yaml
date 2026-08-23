@@ -9,96 +9,95 @@
 # mixins) deliberately stays out of this file too — it covers the
 # standard set, not the long tail.
 
-deployment_id: 1
-typeclass: typeclasses.rooms.BakeryRoom
-name: Goldencrust Bakery
-location: null   # orphan room
-aliases:
-  - bakery
-  - goldencrust
-description: |
-  Smells of fresh bread, honey buns, and woodsmoke fill the warm air.
-  A long counter runs the length of the south wall, fronted by glass
-  cases of golden loaves and pastries. The brick oven at the back
-  glows softly even in the early morning hours.
-locks: "examine:all();get:false();puppet:perm(Wizards)"
-tags:
-  - bakery
-  - commerce
-  - { key: indoor, category: environment }
-  - { key: warm, category: environment }
-  - { key: millholm_town, category: district }
-attributes:
-  - { key: ambient_smell, value: "fresh bread and woodsmoke" }
-  - { key: open_hours, value: [6, 18] }
-  - { key: signature_recipe, value: { name: "honey loaf", flour_grams: 500, honey_grams: 75 }, category: bakery_specific }
-  - { key: noise_level, value: quiet, category: ambient }
-
-exits:
-  - deployment_id: 2
-    typeclass: typeclasses.exits.WoodenDoorExit
-    name: north
-    aliases: [n, door, front door]
-    description: A heavy oak door, currently propped open with a sack of flour.
-    locks: "traverse:all()"
+file_id: 94ccdc5c-a4ef-4b4b-97cb-f51da179f4e0
+entities:
+  - entity_id: c7588c08-0b88-43c4-82bc-5dcd3894f042
+    typeclass: typeclasses.rooms.BakeryRoom
+    name: Goldencrust Bakery
+    location: null   # orphan room
+    aliases:
+      - bakery
+      - goldencrust
+    description: |
+      Smells of fresh bread, honey buns, and woodsmoke fill the warm air.
+      A long counter runs the length of the south wall, fronted by glass
+      cases of golden loaves and pastries. The brick oven at the back
+      glows softly even in the early morning hours.
+    locks: "examine:all();get:false();puppet:perm(Wizards)"
     tags:
-      - { key: door, category: exit_kind }
-      - { key: wooden, category: material }
+      - bakery
+      - commerce
+      - { key: indoor, category: environment }
+      - { key: warm, category: environment }
+      - { key: millholm_town, category: district }
     attributes:
-      - { key: door_weight_kg, value: 30 }
-    destination:
-      deployment_file: millholm/inn.yaml
-      deployment_id: 1
+      - { key: ambient_smell, value: "fresh bread and woodsmoke" }
+      - { key: open_hours, value: [6, 18] }
+      - { key: signature_recipe, value: { name: "honey loaf", flour_grams: 500, honey_grams: 75 }, category: bakery_specific }
+      - { key: noise_level, value: quiet, category: ambient }
 
-contents:
-  - deployment_id: 3
-    typeclass: typeclasses.objects.BrickOven
-    name: brick oven
-    aliases: [oven, hearth]
-    description: A cavernous brick oven, its mouth glowing with embers.
-    locks: "examine:all();get:false()"
-    tags:
-      - { key: fixture, category: object_kind }
-      - { key: heat_source, category: function }
-    attributes:
-      - { key: temperature_c, value: 230 }
-      - { key: fuel, value: oak_wood }
+    exits:
+      - entity_id: d93b5602-f437-474f-8c82-36055f44abc6
+        typeclass: typeclasses.exits.WoodenDoorExit
+        name: north
+        aliases: [n, door, front door]
+        description: A heavy oak door, currently propped open with a sack of flour.
+        locks: "traverse:all()"
+        tags:
+          - { key: door, category: exit_kind }
+          - { key: wooden, category: material }
+        attributes:
+          - { key: door_weight_kg, value: 30 }
+        destination: 28d0aac8-0106-4c30-91ea-df74b98e1ac8
+    contents:
+      - entity_id: f543c3c7-679d-42d4-b16e-bdcd57586723
+        typeclass: typeclasses.objects.BrickOven
+        name: brick oven
+        aliases: [oven, hearth]
+        description: A cavernous brick oven, its mouth glowing with embers.
+        locks: "examine:all();get:false()"
+        tags:
+          - { key: fixture, category: object_kind }
+          - { key: heat_source, category: function }
+        attributes:
+          - { key: temperature_c, value: 230 }
+          - { key: fuel, value: oak_wood }
 
-  - deployment_id: 4
-    typeclass: typeclasses.objects.DisplayCase
-    name: bread display case
-    aliases: [display, case, counter]
-    description: Sloped glass shelves displaying the day's loaves.
-    locks: "examine:all();get:false()"
-    tags:
-      - fixture
-      - { key: glass, category: material }
-    attributes:
-      - { key: capacity, value: 24 }
+      - entity_id: 3fe7a085-1218-4fd1-8396-c687361ca162
+        typeclass: typeclasses.objects.DisplayCase
+        name: bread display case
+        aliases: [display, case, counter]
+        description: Sloped glass shelves displaying the day's loaves.
+        locks: "examine:all();get:false()"
+        tags:
+          - fixture
+          - { key: glass, category: material }
+        attributes:
+          - { key: capacity, value: 24 }
 
-  - deployment_id: 5
-    typeclass: typeclasses.npcs.Baker
-    name: Mira the baker
-    aliases: [mira, baker]
-    description: A flour-dusted woman with kind eyes and forearms like cordwood.
-    locks: "examine:all();get:false();attack:false()"
-    tags:
-      - npc
-      - merchant
-      - { key: friendly, category: disposition }
-    attributes:
-      - { key: greeting, value: "Morning! Smell that? Just out of the oven." }
-      - { key: shop_inventory, value: [honey_loaf, rye_loaf, sweet_bun], category: merchant_data }
+      - entity_id: a552f04b-1ea4-4115-8934-8aba56b0578a
+        typeclass: typeclasses.npcs.Baker
+        name: Mira the baker
+        aliases: [mira, baker]
+        description: A flour-dusted woman with kind eyes and forearms like cordwood.
+        locks: "examine:all();get:false();attack:false()"
+        tags:
+          - npc
+          - merchant
+          - { key: friendly, category: disposition }
+        attributes:
+          - { key: greeting, value: "Morning! Smell that? Just out of the oven." }
+          - { key: shop_inventory, value: [honey_loaf, rye_loaf, sweet_bun], category: merchant_data }
 
-  - deployment_id: 6
-    typeclass: typeclasses.objects.FreshLoaf
-    name: a fresh honey loaf
-    aliases: [loaf, bread, honey loaf]
-    description: A golden, glossy loaf still warm from the oven.
-    locks: "examine:all();get:all()"
-    tags:
-      - food
-      - { key: bakery_goods, category: item_kind }
-    attributes:
-      - { key: nutrition, value: 25 }
-      - { key: weight_grams, value: 800 }
+      - entity_id: 51f2fa51-9f93-43bd-95b5-a4ac531208f9
+        typeclass: typeclasses.objects.FreshLoaf
+        name: a fresh honey loaf
+        aliases: [loaf, bread, honey loaf]
+        description: A golden, glossy loaf still warm from the oven.
+        locks: "examine:all();get:all()"
+        tags:
+          - food
+          - { key: bakery_goods, category: item_kind }
+        attributes:
+          - { key: nutrition, value: 25 }
+          - { key: weight_grams, value: 800 }

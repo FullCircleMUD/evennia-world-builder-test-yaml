@@ -3,21 +3,21 @@
 # as DemoDoor exits; the file-level `links:` block sets `other_side`
 # on each so opening/closing one side mirrors to the partner.
 #
-# Per the cross-file convention in DESIGN/links.md, the same `links:`
+# Per the cross-file convention in docs/links.md, the same `links:`
 # block is duplicated in millholm/bakery.yaml — that lets a partial
 # rebuild of either file fully restore the door pair without help
 # from a links-restoration mechanism in the library.
 
+file_id: 006fab13-673e-47e7-9307-6365effa699f
 entities:
-  - deployment_id: 1
+  - entity_id: 28d0aac8-0106-4c30-91ea-df74b98e1ac8
     typeclass: evennia.objects.objects.DefaultRoom
     name: The Crooked Lantern
     location: null
     description: A warmly-lit common room with a roaring hearth and worn oak tables.
-    # Spike: dict-of-dicts attribute with a `null` placeholder for a
-    # cross-ref that gets resolved by a links: entry below using the
-    # subscript-path attribute syntax. See `notable_neighbours` link
-    # at the file-level links: section.
+    # Dict-of-dicts attribute with a `null` placeholder that a links:
+    # entry fills in via the subscript-path syntax. See the
+    # `notable_neighbours` link in the file-level links: block.
     attributes:
       - key: notable_neighbours
         value:
@@ -30,40 +30,38 @@ entities:
             counter: 42
 
     exits:
-      - deployment_id: 2
+      - entity_id: 27030dd8-b228-471b-826a-dc33a86b1221
         typeclass: typeclasses.doors.DemoDoor
         name: south
         aliases: [s, bakery, door]
         description: A heavy wooden door leads south toward the bakery.
-        destination:
-          deployment_file: millholm/bakery.yaml
-          deployment_id: 1
-
+        destination: bab596f3-aa25-4ec0-a916-cf472efece06
 # Bakery's matching half cascade-deletes if this file's room is
 # deleted (its destination becomes invalid). Declare it so pass 3
 # rebuilds it from canonical bakery.yaml on isolated rebuilds.
 incoming_exits:
-  - { deployment_file: millholm/bakery.yaml, deployment_id: 7 }
+  - db662d8a-a8b1-4c84-93a1-516855a2f691   # bakery: north exit
 
-# Both directional links — same content as bakery.yaml's `links:`.
+# Both directional links — same content as bakery.yaml's `links:`. A
+# reference is opaque, so each carries a trailing comment naming what it
+# points at. The comment is for the reader; the id is the truth.
 links:
-  - entity:    { deployment_file: millholm/inn.yaml, deployment_id: 2 }
+  - entity:    27030dd8-b228-471b-826a-dc33a86b1221   # inn: south exit
     attribute: other_side
-    points_to: { deployment_file: millholm/bakery.yaml, deployment_id: 7 }
-  - entity:    { deployment_file: millholm/bakery.yaml, deployment_id: 7 }
+    points_to: db662d8a-a8b1-4c84-93a1-516855a2f691   # bakery: north exit
+  - entity:    db662d8a-a8b1-4c84-93a1-516855a2f691   # bakery: north exit
     attribute: other_side
-    points_to: { deployment_file: millholm/inn.yaml, deployment_id: 2 }
+    points_to: 27030dd8-b228-471b-826a-dc33a86b1221   # inn: south exit
 
-  # Spike: subscript-path attribute syntax. The leading bare identifier
-  # `notable_neighbours` names a top-level attribute that already
-  # exists on inn id 1 (created in pass 1 from the `attributes:` block
-  # above with a `null` placeholder at ["south_door"]["room"]). Pass 4
-  # walks the path and replaces the null with the resolved bakery
-  # room. After build, examining inn id 1 should show:
+  # Subscript-path attribute syntax. `notable_neighbours` is a top-level
+  # attribute created in pass 1 from the `attributes:` block above, with
+  # a `null` placeholder at ["south_door"]["room"]. Pass 4 walks the
+  # path and replaces the null with the resolved bakery room. After a
+  # build, examining The Crooked Lantern should show:
   #   notable_neighbours["south_door"]["room"]    = bakery (live obj)
   #   notable_neighbours["south_door"]["label"]   = "The bakery (Goldencrust)"
   #   notable_neighbours["south_door"]["walking_minutes"] = 1
   #   notable_neighbours["static_test"]["counter"] = 42
-  - entity:    { deployment_file: millholm/inn.yaml, deployment_id: 1 }
+  - entity:    28d0aac8-0106-4c30-91ea-df74b98e1ac8   # inn: The Crooked Lantern
     attribute: 'notable_neighbours["south_door"]["room"]'
-    points_to: { deployment_file: millholm/bakery.yaml, deployment_id: 1 }
+    points_to: bab596f3-aa25-4ec0-a916-cf472efece06   # bakery: Goldencrust Bakery

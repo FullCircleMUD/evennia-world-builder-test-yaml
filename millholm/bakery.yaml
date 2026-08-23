@@ -3,18 +3,18 @@
 # district plus their nested contents and the exits between them.
 #
 # Connections:
-#   Goldencrust Bakery (id 1)  ←→  baker's house (id 9)
-#   Goldencrust Bakery (id 1)   →  millholm/inn.yaml id 1
+#   Goldencrust Bakery  ←→  Baker's House
+#   Goldencrust Bakery   →  The Crooked Lantern (millholm/inn.yaml)
 #
-# The reverse exit from the inn back to the bakery lives canonically
-# in inn.yaml as id 2, registered here under `incoming_exits:` so a
-# scoped rebuild of bakery.yaml (`wb_build zone=millholm room=bakery`)
-# automatically restores the inn's south exit if it was cascade-
-# deleted by the bakery cleanup. Pass 3 of the Builder fetches the
-# canonical file and rebuilds the missing entity.
+# The reverse exit from the inn back to the bakery lives canonically in
+# inn.yaml, registered here under `incoming_exits:` so a scoped rebuild
+# of this file (`wb_build zone=millholm room=bakery`) restores it if the
+# bakery cleanup cascade-deleted it. Pass 3 resolves the reference to
+# its canonical file via the entity index and rebuilds it.
 
+file_id: d3d35e78-de1e-4e5e-9dd0-321281213976
 entities:
-  - deployment_id: 1
+  - entity_id: bab596f3-aa25-4ec0-a916-cf472efece06
     typeclass: typeclasses.rooms.BakeryRoom
     name: Goldencrust Bakery
     location: null
@@ -43,7 +43,7 @@ entities:
       - { key: noise_level, value: quiet, category: ambient }
 
     contents:
-      - deployment_id: 3
+      - entity_id: 7b6fa506-17fb-4cd4-8ea9-b3ddd2ec8139
         typeclass: evennia.objects.objects.DefaultObject
         name: brick oven
         aliases: [oven, hearth]
@@ -56,7 +56,7 @@ entities:
           - { key: temperature_c, value: 230 }
           - { key: fuel, value: oak_wood }
 
-      - deployment_id: 4
+      - entity_id: 52d10386-d06a-4514-b684-a4cb7d7e797c
         typeclass: evennia.objects.objects.DefaultObject
         name: bread display case
         aliases: [display, case, counter]
@@ -68,7 +68,7 @@ entities:
         attributes:
           - { key: capacity, value: 24 }
 
-      - deployment_id: 5
+      - entity_id: 1b836927-3cca-4e05-8bd4-e7a0f1cde914
         typeclass: evennia.objects.objects.DefaultObject
         name: Mira the baker
         aliases: [mira, baker]
@@ -82,7 +82,7 @@ entities:
           - { key: greeting, value: "Morning! Smell that? Just out of the oven." }
           - { key: shop_inventory, value: [honey_loaf, rye_loaf, sweet_bun], category: merchant_data }
 
-      - deployment_id: 6
+      - entity_id: 5adf18ba-c37a-4356-9656-c874a45cb326
         typeclass: evennia.objects.objects.DefaultObject
         name: a fresh honey loaf
         aliases: [loaf, bread, honey loaf]
@@ -96,36 +96,26 @@ entities:
           - { key: weight_grams, value: 800 }
 
     exits:
-      - deployment_id: 7
+      - entity_id: db662d8a-a8b1-4c84-93a1-516855a2f691
         typeclass: typeclasses.doors.DemoDoor
         name: north
         aliases: [n, inn, door]
         description: A heavy wooden door leads north toward the Crooked Lantern.
-        destination:
-          deployment_file: millholm/inn.yaml
-          deployment_id: 1
-
-      - deployment_id: 8
+        destination: 28d0aac8-0106-4c30-91ea-df74b98e1ac8
+      - entity_id: 039e3725-b733-4972-b06c-cea2b82d1af7
         typeclass: evennia.objects.objects.DefaultExit
         name: south
         aliases: [s, house]
         description: A door at the back leads through to the baker's house.
-        destination:
-          deployment_file: millholm/bakery.yaml
-          deployment_id: 9
-
-
-  - deployment_id: 9
+        destination: 5bfb8612-5e26-402f-81de-9fecaa0c9afe
+  - entity_id: 5bfb8612-5e26-402f-81de-9fecaa0c9afe
     typeclass: typeclasses.rooms.Room
     name: Baker's House
     location: null
-    # Cross-ref home demo: the baker's house's home is the bakery (id 1)
-    # in this same file. Builder will resolve the dict and pass
-    # `home=<bakery obj>` to create_object, so the resulting room's
-    # `home` field references the bakery.
-    home:
-      deployment_file: millholm/bakery.yaml
-      deployment_id: 1
+    # Home reference demo: the Baker's House's home is the bakery. The
+    # Builder resolves it and passes `home=<bakery obj>` to
+    # create_object, so the resulting room's `home` field points there.
+    home: bab596f3-aa25-4ec0-a916-cf472efece06
     aliases:
       - house
     description: |
@@ -137,7 +127,7 @@ entities:
       - { key: millholm_town, category: district }
 
     contents:
-      - deployment_id: 10
+      - entity_id: d7cd3458-be03-4f7c-a6d5-8068580f5a08
         typeclass: evennia.objects.objects.DefaultObject
         name: ornate four-post bed
         aliases: [bed]
@@ -149,34 +139,31 @@ entities:
           - { key: weight_grams, value: 800 }
 
     exits:
-      - deployment_id: 11
+      - entity_id: 86ea589d-3b73-49d6-948b-4a4d28212be9
         typeclass: evennia.objects.objects.DefaultExit
         name: north
         aliases: [n, bakery]
         description: The bakery is just back the way you came.
-        destination:
-          deployment_file: millholm/bakery.yaml
-          deployment_id: 1
-
-
+        destination: bab596f3-aa25-4ec0-a916-cf472efece06
 # File-level metadata. Sibling of `entities:` per the canonical shape.
-# Each entry is a (deployment_file, deployment_id) ref to an exit
-# living in another file that terminates at one of this file's rooms.
-# When this file is rebuilt and a registered target is missing from
-# the database, Builder pass 3 fetches its canonical file and rebuilds
-# the entity (tagged with its true home file so future cleanup of
-# that file sweeps it correctly).
+# Each entry references an exit living in another file that terminates
+# at one of this file's rooms. When this file is rebuilt and a
+# registered target is missing from the database, pass 3 rebuilds it
+# from its canonical file, tagged with that file's id so future cleanup
+# there sweeps it correctly.
 incoming_exits:
-  - { deployment_file: millholm/inn.yaml, deployment_id: 2 }
+  - 27030dd8-b228-471b-826a-dc33a86b1221   # inn: south exit
 
-# Both directional links for the bakery↔inn door pair. Duplicated
-# in millholm/inn.yaml per the cross-file convention in
-# DESIGN/links.md so partial rebuilds of either file fully restore
-# the pair without library-side links restoration.
+# Both directional links for the bakery↔inn door pair. Duplicated in
+# millholm/inn.yaml per the cross-file convention in docs/links.md, so a
+# partial rebuild of either file restores the pair.
+#
+# A reference is opaque, so each one carries a trailing comment naming
+# what it points at. The comment is for the reader; the id is the truth.
 links:
-  - entity:    { deployment_file: millholm/inn.yaml, deployment_id: 2 }
+  - entity:    27030dd8-b228-471b-826a-dc33a86b1221   # inn: south exit
     attribute: other_side
-    points_to: { deployment_file: millholm/bakery.yaml, deployment_id: 7 }
-  - entity:    { deployment_file: millholm/bakery.yaml, deployment_id: 7 }
+    points_to: db662d8a-a8b1-4c84-93a1-516855a2f691   # bakery: north exit
+  - entity:    db662d8a-a8b1-4c84-93a1-516855a2f691   # bakery: north exit
     attribute: other_side
-    points_to: { deployment_file: millholm/inn.yaml, deployment_id: 2 }
+    points_to: 27030dd8-b228-471b-826a-dc33a86b1221   # inn: south exit
